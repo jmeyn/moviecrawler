@@ -1,31 +1,30 @@
 import os
 
 def main():
-    print(os.getcwd())
+    origin = os.getcwd()
     check = []
-    check += navigate()
-    while len(check) > 1:
+    check += findDir()
+    while len(check) > 2:
         for i in check:
-            os.chdir(i)
-            check += navigate()
-            os.chdir("..")
-            check.pop(0)
-            print()
-    
+            os.chdir(os.path.abspath(i))
+            check += findDir()
+            os.chdir(origin)
+        check.pop(0)
 
 def listDir():
     for i in os.listdir():
         print(i)
     
-def navigate():
+def findDir():
     check = []
     listDir()
     for i in os.listdir():
         if os.path.isdir(i):
-            check.append(i)
+            check.append(os.path.abspath(i))
+            # print("meme", i, os.path.abspath(i))
     return check
     
-def check(d):
+def findMovie(d):
     for i in d:
         #if d is any movie file type
             #save dir name
