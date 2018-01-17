@@ -1,27 +1,36 @@
 import os
 
+#DEBUG: remove later
+al = []
+
 def main():
     origin = os.getcwd()
     check = []
-    check += findDir()
-    while len(check) > 2:
+    check += findDir(origin)
+    while len(check) >= 1:
+        lStart = len(check)
         for i in check:
             os.chdir(os.path.abspath(i))
-            check += findDir()
-            os.chdir(origin)
-        check.pop(0)
+            check += findDir(os.getcwd())
+        check = check[lStart + 1:]
+    print(al, len(al))
 
 def listDir():
     for i in os.listdir():
         print(i)
     
-def findDir():
+def findDir(d):
+    os.chdir(d)
     check = []
-    listDir()
+    # listDir()
     for i in os.listdir():
         if os.path.isdir(i):
             check.append(os.path.abspath(i))
             # print("meme", i, os.path.abspath(i))
+    #DEBUG: remove later
+        else:
+            al.append(i)
+    #/DEBUG
     return check
     
 def findMovie(d):
