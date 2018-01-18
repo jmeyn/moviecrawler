@@ -7,12 +7,12 @@ def main():
     origin = os.getcwd()
     check = []
     check += findDir(origin)
-    while len(check) >= 1:
+    while len(check) > 0:
         lStart = len(check)
         for i in check:
-            os.chdir(os.path.abspath(i))
-            check += findDir(os.getcwd())
-        check = check[lStart + 1:]
+            check += findDir(os.path.abspath(i))
+        check = check[lStart + 2:]
+    os.chdir(origin)
     print(al, len(al))
 
 def listDir():
@@ -41,3 +41,4 @@ def findMovie(d):
 
 if __name__ == "__main__":
     main()
+    
